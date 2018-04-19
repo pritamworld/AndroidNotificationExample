@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">NotificationExample</string>
+    <string name="show_first_notification">Show First Notification</string>
+    <string name="show_second_notification">Show Second Notification</string>
+    <string name="android_o_only_example">Android O Only Example</string>
+</resources>

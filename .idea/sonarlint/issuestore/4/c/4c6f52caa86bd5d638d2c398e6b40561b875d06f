@@ -1,0 +1,9 @@
+
+osquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(¥¥¬×şÿÿÿÿ8¡‡³ÿ­,
+squid:S00116"dRename this field "NOTIFICATION_CHANNEL_NAME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯¹¬8¡‡³ÿ­,
+Ksquid:S1481"/Remove this unused "importance" local variable.(³®œ8¡‡³ÿ­,
+Ysquid:S1854"8Remove this useless assignment to local variable "name".(ó¨øúÿÿÿÿ8¡‡³ÿ­,
+Jsquid:S1481")Remove this unused "name" local variable.(ó¨øúÿÿÿÿ8¡‡³ÿ­,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(±Äø™üÿÿÿÿ8¡‡³ÿ­,
+Zsquid:S1854">Remove this useless assignment to local variable "importance".(³®œ8¡‡³ÿ­,
+|squid:S00116"ZRename this field "NOTIFICATION_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ĞˆÒÿÿÿÿÿ8¡‡³ÿ­,
