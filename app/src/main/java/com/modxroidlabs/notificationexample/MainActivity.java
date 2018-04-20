@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int totalMessages=0;
     int NOTIFICATION_ID = 100;
     public static final int NOTIFICATION_CHANNEL_ID = 4565;
+    public static final String O_NOTIFICATION_CHANNEL_ID = "1010";
     //Notification Channel
     String NOTIFICATION_CHANNEL_NAME = "1234";
 
@@ -51,6 +53,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nBuilder.setContentIntent(pendingIntent);
 
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //New Code for Android ) >=26
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+        {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel notificationChannel = new NotificationChannel(O_NOTIFICATION_CHANNEL_ID, "NOTIFICATION_CHANNEL_NAME", importance);
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            nBuilder.setChannelId(O_NOTIFICATION_CHANNEL_ID);
+            mNotificationManager.createNotificationChannel(notificationChannel);
+        }
         mNotificationManager.notify(NOTIFICATION_ID, nBuilder.build());
     }
 
@@ -109,8 +124,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             NotificationChannel notificationChannel = new NotificationChannel("channelId", "channelName", NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannel.setDescription(description);
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
             notificationManager.createNotificationChannel(notificationChannel);
         }
+
 
         Notification.Builder notificationBuilder;
 
@@ -129,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Notification notification = notificationBuilder.build();
         notificationManager.notify(NOTIFICATION_ID, notification);
+
         /*
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_NAME)
                 .setDefaults(Notification.DEFAULT_ALL)
@@ -136,11 +158,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
                 .setSound(null)
                 .setChannelId(NOTIFICATION_CHANNEL_NAME)
-                .setContent("")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setLargeIcon(R.drawable.ic_action_notification)
                 .setAutoCancel(false);
+
+        Notification notification = builder.build();
+        notificationManager.notify(NOTIFICATION_ID, notification);
         */
+
+    }
+
+    private void showNotificationChannel()
+    {
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+        {
+            NotificationChannel notificationChannel = new NotificationChannel("channelId", "channelName", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationChannel.setDescription("Hello Hello");
+
+            Notification notification = new Notification.Builder(MainActivity.this)
+                    .setContentTitle("New Message")
+                    .setContentText("You've received new messages.")
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setChannelId(NOTIFICATION_CHANNEL_NAME)
+                    .build();
+
+            notification.notify();
+        }
+
     }
 
     @Override
@@ -157,7 +200,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnThird:
-                showAndroidOOnlyNotification();
+                //showAndroidOOnlyNotification();
+                //showNotificationChannel();
+                NotificationHelper notificationHelper = new NotificationHelper(this);
+                notificationHelper.createNotification("Android Orio Notification title", "Hello Notification");
                 break;
 
             default:
